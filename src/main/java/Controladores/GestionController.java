@@ -14,12 +14,11 @@ public class GestionController implements Initializable {
     public Button estadisticasBoton;
     public Button paquetesBoton;
     public Button guiasBoton;
+    private final PrincipalController principalController = PrincipalController.getInstance();
 
-    public PrincipalController principalController = PrincipalController.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
     public void mostrarDestinos() {

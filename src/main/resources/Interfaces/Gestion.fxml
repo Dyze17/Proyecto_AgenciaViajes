@@ -12,8 +12,8 @@
             </font>
         </Label>
     </Pane>
-     <Button fx:id="destinosBoton" layoutX="239.0" layoutY="141.0" mnemonicParsing="false" onAction="#mostrarDestinos" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #4B5F83;" text="Destinos" textFill="WHITE" />
-     <Button fx:id="estadisticasBoton" layoutX="99.0" layoutY="187.0" mnemonicParsing="false" onAction="#mostrarEstadisticas" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #4B5F83;" text="Estadisticas" textFill="WHITE" />
-     <Button fx:id="paquetesBoton" layoutX="99.0" layoutY="141.0" mnemonicParsing="false" onAction="#mostrarPaquetes" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #4B5F83;" text="Paquetes" textFill="WHITE" />
-     <Button fx:id="guiasBoton" layoutX="239.0" layoutY="187.0" mnemonicParsing="false" onAction="#mostrarGuias" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #4B5F83;" text="Guias" textFill="WHITE" />
+     <Button fx:id="destinosBoton" onAction="#mostrarDestinos" layoutX="239.0" layoutY="141.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #4B5F83;" text="Destinos" textFill="WHITE" />
+     <Button fx:id="estadisticasBoton" onAction="#mostrarEstadisticas" layoutX="99.0" layoutY="187.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #4B5F83;" text="Estadisticas" textFill="WHITE" />
+     <Button fx:id="paquetesBoton" onAction="#mostrarPaquetes" layoutX="99.0" layoutY="141.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #4B5F83;" text="Paquetes" textFill="WHITE" />
+     <Button fx:id="guiasBoton" onAction="#mostrarGuias" layoutX="239.0" layoutY="187.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #4B5F83;" text="Guias" textFill="WHITE" />
 </AnchorPane>

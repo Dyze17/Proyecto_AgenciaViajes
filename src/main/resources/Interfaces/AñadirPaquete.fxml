@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.PaquetesController">
+   <TextField fx:id="nombreField" layoutX="40.0" layoutY="58.0" prefHeight="25.0" prefWidth="144.0" promptText="Nombre"/>
+   <ComboBox fx:id="destinosBox" layoutX="219.0" layoutY="58.0" prefHeight="25.0" prefWidth="160.0" promptText="Destinos"/>
+   <TextArea fx:id="descripcionArea" layoutX="40.0" layoutY="99.0" prefHeight="200.0" prefWidth="340.0" promptText="Descripción..."/>
+   <DatePicker fx:id="fechaInicial" layoutX="40.0" layoutY="313.0" prefHeight="25.0" prefWidth="122.0" promptText="Fecha inicial"/>
+   <DatePicker fx:id="fechaFinal" layoutX="257.0" layoutY="313.0" prefHeight="25.0" prefWidth="122.0" promptText="Fecha final"/>
+   <Button fx:id="añadirPaqueteBoton" layoutX="161.0" layoutY="349.0" mnemonicParsing="false" text="Añadir Paquete"/>
+</AnchorPane>

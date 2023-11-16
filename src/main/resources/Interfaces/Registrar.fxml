@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.RegistrarController">
    <children>
       <Pane layoutX="-1.0" layoutY="31.0" prefHeight="52.0" prefWidth="419.0" style="-fx-background-color: #4B5F83;">
          <children>
@@ -18,11 +16,11 @@
             </Label>
          </children>
       </Pane>
-      <TextField layoutX="50.0" layoutY="106.0" prefHeight="25.0" prefWidth="135.0" promptText="Nombre" />
-      <TextField layoutX="246.0" layoutY="106.0" prefHeight="25.0" prefWidth="135.0" promptText="Documento" />
-      <TextField layoutX="50.0" layoutY="187.0" prefHeight="25.0" prefWidth="135.0" promptText="Email" />
-      <TextField layoutX="246.0" layoutY="187.0" prefHeight="25.0" prefWidth="135.0" promptText="Teléfono" />
-      <TextField layoutX="50.0" layoutY="256.0" prefHeight="25.0" prefWidth="135.0" promptText="Dirección" />
+      <TextField fx:id="nombreTxt" layoutX="50.0" layoutY="106.0" prefHeight="25.0" prefWidth="135.0" promptText="Nombre" />
+      <TextField fx:id="DocTxt" layoutX="246.0" layoutY="106.0" prefHeight="25.0" prefWidth="135.0" promptText="Documento" />
+      <TextField fx:id="emailTxt" layoutX="50.0" layoutY="187.0" prefHeight="25.0" prefWidth="135.0" promptText="Email" />
+      <TextField fx:id="celTxt" layoutX="246.0" layoutY="187.0" prefHeight="25.0" prefWidth="135.0" promptText="Teléfono" />
+      <TextField fx:id="direccionTxt" layoutX="50.0" layoutY="256.0" prefHeight="25.0" prefWidth="135.0" promptText="Dirección" />
       <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="25.0" layoutY="258.0">
          <image>
             <Image url="@../Imagenes/Direccion.png" />
@@ -48,16 +46,17 @@
             <Image url="@../Imagenes/Telefon.png" />
          </image>
       </ImageView>
-      <Button layoutX="326.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Registrar">
+      <Button fx:id="registrarBoton" layoutX="326.0" layoutY="350.0" mnemonicParsing="false" onAction="#registrarDatos" prefHeight="25.0" prefWidth="55.0" text="Registrar">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <TextField layoutX="246.0" layoutY="256.0" prefHeight="25.0" prefWidth="135.0" promptText="Contraseña" />
+      <TextField fx:id="claveTxt" layoutX="246.0" layoutY="256.0" prefHeight="25.0" prefWidth="135.0" promptText="Contraseña" />
       <ImageView fitHeight="11.0" fitWidth="13.0" layoutX="227.0" layoutY="263.0">
          <image>
             <Image url="@../Imagenes/Clave.png" />
          </image>
       </ImageView>
+      <ComboBox fx:id="admCombo" layoutX="50.0" layoutY="319.0" prefHeight="25.0" prefWidth="135.0" promptText="Tipo" />
    </children>
 </Pane>

@@ -17,10 +17,10 @@
          </font>
       </Label>
    </Pane>
-   <TextField layoutX="134.0" layoutY="221.0" prefHeight="25.0" prefWidth="149.0" promptText="Documento"/>
-   <TextField layoutX="134.0" layoutY="254.0" prefHeight="25.0" prefWidth="149.0" promptText="Contraseña"/>
+   <TextField fx:id="documentoTxt" layoutX="134.0" layoutY="221.0" prefHeight="25.0" prefWidth="149.0" promptText="Documento"/>
+   <TextField fx:id="claveTxt" layoutX="134.0" layoutY="254.0" prefHeight="25.0" prefWidth="149.0" promptText="Contraseña"/>
    <Label layoutX="195.0" layoutY="132.0"/>
-   <Button layoutX="135.0" layoutY="287.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0"
+   <Button fx:id="iniciarBoton" onAction="#iniciarSesion" layoutX="135.0" layoutY="287.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0"
            text="Iniciar sesión">
       <font>
          <Font size="9.0"/>
@@ -29,7 +29,7 @@
    <ImageView layoutX="161.0" layoutY="101.0">
       <Image url="@../Imagenes/User2.png"/>
    </ImageView>
-   <Button layoutX="134.0" layoutY="312.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0"
+   <Button fx:id="RegistrarBoton" onAction="#mostrarRegistrar" layoutX="134.0" layoutY="312.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0"
            style="-fx-background-color: transparents;" text="Registrarse" underline="true">
       <font>
          <Font name="System Bold" size="9.0"/>
