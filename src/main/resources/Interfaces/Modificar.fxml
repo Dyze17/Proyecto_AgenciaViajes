@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="418.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ModificarController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="425.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ModificarController">
    <children>
-       <TextField layoutX="255.0" layoutY="226.0" promptText="Nuevo Email" />
-       <TextField layoutX="45.0" layoutY="276.0" promptText="Dirección nueva" />
-       <TextField layoutX="45.0" layoutY="225.0" promptText="Contraseña nueva" />
-       <TextField layoutX="255.0" layoutY="276.0" promptText="Nuevo telefono" />
-       <Button fx:id="btnActualizar" layoutX="45.0" layoutY="325.0" mnemonicParsing="false" onAction="#mostrarActualizar" prefHeight="25.0" prefWidth="64.0" text="Guardar">
+       <TextField fx:id="txtCorreo" layoutX="255.0" layoutY="226.0" promptText="Nuevo Email" />
+       <TextField fx:id="txtDireccion" layoutX="45.0" layoutY="276.0" promptText="Dirección nueva" />
+       <TextField fx:id="txtContraseña" layoutX="45.0" layoutY="226.0" promptText="Contraseña nueva" />
+       <TextField fx:id="txtTelefono" layoutX="255.0" layoutY="276.0" promptText="Nuevo telefono" />
+       <Button fx:id="btnActualizar" layoutX="161.0" layoutY="332.0" mnemonicParsing="false" onAction="#mostrarActualizar" prefHeight="34.0" prefWidth="102.0" style="-fx-border-color: #FFFFFF; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: #576A8B;" text="Actualizar" textFill="WHITE">
            <font>
-             <Font name="Arial" size="9.0" />
+             <Font name="Arial" size="13.0" />
            </font>
        </Button>
       <ImageView fitHeight="18.0" fitWidth="16.0" layoutX="228.0" layoutY="230.0">
@@ -51,8 +50,8 @@
             </ImageView>
          </children>
       </Pane>
-      <TextField layoutX="45.0" layoutY="175.0" prefHeight="25.0" prefWidth="149.0" promptText="Nombre" />
-      <TextField layoutX="252.0" layoutY="175.0" promptText="Nuevo documento" />
+      <TextField fx:id="txtNombre" layoutX="45.0" layoutY="175.0" prefHeight="25.0" prefWidth="149.0" promptText="Nombre" />
+      <TextField fx:id="txtDocumento" layoutX="252.0" layoutY="175.0" promptText="Nuevo documento" />
       <ImageView fitHeight="18.0" fitWidth="16.0" layoutX="21.0" layoutY="179.0">
          <image>
             <Image url="@../Imagenes/Nombre.png" />
