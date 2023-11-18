@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="398.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ReservaAgregarController">
+<AnchorPane fx:id="paneReservaAgregar" prefHeight="398.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ReservaAgregarController">
     <children>
         <Pane layoutX="-1.0" layoutY="31.0" prefHeight="52.0" prefWidth="419.0" style="-fx-background-color: #4B5F83;">
             <children>
@@ -63,7 +63,6 @@
          </image>
       </ImageView>
       <ChoiceBox fx:id="boxNumPersonas" layoutX="255.0" layoutY="205.0" prefHeight="31.0" prefWidth="153.0" />
-      <TextField fx:id="txtPaquete" layoutX="46.0" layoutY="251.0" prefHeight="31.0" prefWidth="153.0" promptText="Paquete turistico" />
       <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="10.0" layoutY="251.0">
          <image>
             <Image url="@../Imagenes/Avion2.png" />
@@ -76,6 +75,7 @@
             <Image url="@../Imagenes/estado.png" />
          </image>
       </ImageView>
+      <ChoiceBox fx:id="boxPaquete" layoutX="46.0" layoutY="251.0" prefHeight="31.0" prefWidth="153.0" />
 
 
     </children>

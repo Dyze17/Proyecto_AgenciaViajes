@@ -1,5 +1,6 @@
 package Utils;
 
+import Modelo.Reserva;
 import javafx.scene.control.Alert;
 
 import java.beans.XMLDecoder;

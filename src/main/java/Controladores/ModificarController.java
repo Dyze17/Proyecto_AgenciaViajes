@@ -1,6 +1,7 @@
 package Controladores;
 
 import Exceptions.ErrorGuardarCambios;
+import Modelo.AgenciaUQ;
 import Modelo.Cliente;
 import Utils.ArchivoUtils;
 import javafx.event.ActionEvent;
@@ -35,45 +36,33 @@ public class ModificarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        txtNombre.setText(cliente.getNombreCompleto());
-        txtDocumento.setText(cliente.getCedula());
-        txtContraseña.setText(cliente.getContraseña());
-        txtCorreo.setText(cliente.getCorreo());
-        txtDireccion.setText(cliente.getDireccion());
-        txtTelefono.setText(cliente.getTelefono());
     }
 
     @FXML
-    private void mostrarActualizar(ActionEvent event)  {
+    private void mostrarActualizar(ActionEvent event) throws ErrorGuardarCambios {
         try {
             String nuevoNombre = txtNombre.getText();
+            String nuevoDocumento = txtDocumento.getText();
             String nuevoCorreo = txtCorreo.getText();
             String nuevoContraseña = txtContraseña.getText();
             String nuevoDireccion = txtDireccion.getText();
             String nuevoTelefono = txtTelefono.getText();
 
-            if (!cliente.getCedula().equals(obtenerIdentificacionDelUsuario())) {
-                ArchivoUtils.mostrarMensaje("Error", "Identificación incorrecta", "La identificación del cliente no coincide.", Alert.AlertType.ERROR);
-                throw new ErrorGuardarCambios("La identificación del cliente no coincide.");
+            if (!AgenciaUQ.getAgenciaUQ().obtenerClienteCedula(nuevoDocumento)) {
+                ArchivoUtils.mostrarMensaje("Error", "Documento no encontrado", "El documento ingresado no está en la lista.", Alert.AlertType.ERROR);
+                throw new ErrorGuardarCambios("El documento del cliente no está en la lista.");
             }
 
-            cliente.setNombreCompleto(nuevoNombre);
-            cliente.setCorreo(nuevoCorreo);
-            cliente.setTelefono(nuevoTelefono);
-            cliente.setContraseña(nuevoContraseña);
-            cliente.setDireccion(nuevoDireccion);
+            AgenciaUQ.getInstance().modificarUsuario(nuevoDocumento, nuevoNombre, nuevoCorreo, nuevoContraseña, nuevoDireccion, nuevoTelefono);
             ArchivoUtils.mostrarMensaje("Éxito", "Modificación exitosa", "Los cambios se guardaron correctamente.", Alert.AlertType.INFORMATION);
-
             log.severe("Se ha actualizado correctamente los datos de " + txtDocumento);
 
         } catch (Exception e) {
             ArchivoUtils.mostrarMensaje("Error", "Error al guardar cambios", "Hubo un error al intentar guardar los cambios.", Alert.AlertType.ERROR);
-            e.printStackTrace(); // O manejo de errores específico
+            throw new ErrorGuardarCambios("No se encontró ningún cliente con la cédula proporcionada.");
         }
     }
 
-    private String obtenerIdentificacionDelUsuario() {
-        return txtDocumento.getText();
-    }
+
 
 }
