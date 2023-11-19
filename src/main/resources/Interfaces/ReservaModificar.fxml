@@ -11,7 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<AnchorPane prefHeight="398.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ReservaModificarController" >
+<AnchorPane prefHeight="398.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ReservaModificarController">
 
     <children>
         <Pane layoutX="-1.0" layoutY="31.0" prefHeight="52.0" prefWidth="419.0" style="-fx-background-color: #4B5F83;">
@@ -28,15 +28,56 @@
                 </ImageView>
             </children>
         </Pane>
-        <TableView fx:id="tableReserva" layoutX="14.0" layoutY="92.0" prefHeight="246.0" prefWidth="392.0">
-            <columns>
-                <TableColumn fx:id="columNombre" prefWidth="136.0" text="Nombre" />
-                <TableColumn fx:id="columPaquete" prefWidth="134.0" text="Paquete" />
-                <TableColumn fx:id="columEstado" prefWidth="121.0" text="Estado" />
-            </columns>
-        </TableView>
         <Button fx:id="btnModificar" layoutX="65.0" layoutY="349.0" mnemonicParsing="false" onAction="#showModificar" style="-fx-background-color: #4B5F83;" text="Modificar" textFill="WHITE" />
         <Button fx:id="btnEliminar" layoutX="282.0" layoutY="349.0" mnemonicParsing="false" onAction="#showEliminar" style="-fx-background-color: #4B5F83;" text="Eliminar" textFill="WHITE" />
+        <TextField fx:id="txtNombre" layoutX="46.0" layoutY="141.0" prefHeight="31.0" prefWidth="153.0" promptText="Nombre" />
+        <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="10.0" layoutY="142.0">
+            <image>
+                <Image url="@../Imagenes/Nombre.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="txtDocumento" layoutX="47.0" layoutY="182.0" prefHeight="31.0" prefWidth="153.0" promptText="Documento" />
+        <ImageView fitHeight="21.0" fitWidth="22.0" layoutX="13.0" layoutY="187.0">
+            <image>
+                <Image url="@../Imagenes/ID.png" />
+            </image>
+        </ImageView>
+        <DatePicker fx:id="dateViaje" layoutX="255.0" layoutY="142.0" prefHeight="31.0" prefWidth="153.0" promptText="Fecha de viaje" />
+        <DatePicker fx:id="dateSolicitud" layoutX="255.0" layoutY="182.0" prefHeight="31.0" prefWidth="153.0" promptText="Fecha de solicitud" />
+        <ChoiceBox fx:id="boxGuia" layoutX="46.0" layoutY="227.0" prefHeight="31.0" prefWidth="153.0" />
+        <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="10.0" layoutY="227.0">
+            <image>
+                <Image url="@../Imagenes/lider.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="217.0" layoutY="140.0">
+            <image>
+                <Image url="@../Imagenes/calendario.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="43.0" fitWidth="39.0" layoutX="212.0" layoutY="176.0">
+            <image>
+                <Image url="@../Imagenes/calendario2.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="217.0" layoutY="226.0">
+            <image>
+                <Image url="@../Imagenes/personasNum.png" />
+            </image>
+        </ImageView>
+        <ChoiceBox fx:id="boxNumPersonas" layoutX="255.0" layoutY="227.0" prefHeight="31.0" prefWidth="153.0" />
+        <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="10.0" layoutY="273.0">
+            <image>
+                <Image url="@../Imagenes/Avion2.png" />
+            </image>
+        </ImageView>
+        <ChoiceBox fx:id="boxEstado" layoutX="255.0" layoutY="273.0" prefHeight="31.0" prefWidth="153.0" />
+        <ImageView fitHeight="31.0" fitWidth="29.0" layoutX="217.0" layoutY="273.0">
+            <image>
+                <Image url="@../Imagenes/estado.png" />
+            </image>
+        </ImageView>
+        <ChoiceBox fx:id="boxPaquete" layoutX="46.0" layoutY="273.0" prefHeight="31.0" prefWidth="153.0" />
     </children>
 
 </AnchorPane>

@@ -412,11 +412,74 @@ public class AgenciaUQ {
                 .build();
 
         reservas.add(reserva);
-        ArchivoUtils.escribirArchivoFormatter("src/main/resources/Data/reservas.data", null);
+        ArchivoUtils.escribirArchivoFormatter("src/main/resources/Data/reservas.txt", null);
 
         ArchivoUtils.mostrarMensaje("Informe", "", "Se ha agregado la reserva correctamente", Alert.AlertType.INFORMATION);
         LOGGER.log(Level.INFO, "Se ha registrado una nueva reserva del cliente: "+cliente);
     }
+
+    public void modificarReserva(String idCliente, LocalDate nuevaFechaSolicitud, LocalDate nuevaFechaViaje, short nuevoNumPersonas, PaqueteTuristico nuevoPaqueteTuristico, Cliente nuevoCliente, GuiaTuristico nuevoGuia, EstadoReserva nuevoEstado) throws AtributoVacioException, FechaNoValidaException, CupoInvalidoException, IOException, ErrorGuardarCambios {
+
+        // Buscar la reserva que se desea modificar
+        Reserva reservaAModificar = null;
+        for (Reserva reserva : reservas) {
+            if (reserva.getCliente().getCedula().equals(idCliente)) {
+                reservaAModificar = reserva;
+                break;
+            }
+        }
+
+        if (reservaAModificar == null) {
+            ArchivoUtils.mostrarMensaje("Error", "Reserva no encontrada", "No se encontró ninguna reserva para el cliente con ID " + idCliente, Alert.AlertType.ERROR);
+            throw new ErrorGuardarCambios("No se encontró ninguna reserva para el cliente con ID " + idCliente);
+        }
+
+        if (nuevaFechaSolicitud.isAfter(nuevaFechaViaje)) {
+            LOGGER.log(Level.WARNING, "La fecha de solicitud no puede ser después de la fecha de viaje");
+            throw new FechaNoValidaException("La fecha de solicitud no puede ser después de la fecha de viaje");
+        }
+
+        // Agregar más validaciones
+        // Modificar la reserva
+        reservaAModificar.setFechaSolicitud(nuevaFechaSolicitud);
+        reservaAModificar.setFechaViaje(nuevaFechaViaje);
+        reservaAModificar.setNumPersonas(nuevoNumPersonas);
+        reservaAModificar.setPaqueteTuristico(nuevoPaqueteTuristico);
+        reservaAModificar.setCliente(nuevoCliente);
+        reservaAModificar.setGuia(nuevoGuia);
+        reservaAModificar.setEstado(nuevoEstado);
+
+        // Guardar la lista actualizada de reservas
+        ArchivoUtils.escribirArchivoFormatter("src/main/resources/Data/reservas.txt", null);
+
+        ArchivoUtils.mostrarMensaje("Informe", "", "Se ha modificado la reserva correctamente", Alert.AlertType.INFORMATION);
+        LOGGER.log(Level.INFO, "Se ha modificado la reserva del cliente: " + idCliente);
+    }
+
+    public void eliminarReserva (String idCliente) throws ErrorGuardarCambios, IOException {
+        // Buscar la reserva que se desea eliminar
+        Reserva reservaAEliminar = null;
+        for (Reserva reserva : reservas) {
+            if (reserva.getCliente().getCedula().equals(idCliente)) {
+                reservaAEliminar = reserva;
+                break;
+            }
+        }
+
+        if (reservaAEliminar != null) {
+            reservas.remove(reservaAEliminar);
+            ArchivoUtils.escribirArchivoFormatter("src/main/resources/Data/reservas.txt", null);
+
+            ArchivoUtils.mostrarMensaje("Informe", "", "Se ha eliminado la reserva correctamente", Alert.AlertType.INFORMATION);
+            LOGGER.log(Level.INFO, "Se ha eliminado la reserva del cliente con ID: " + idCliente);
+        } else {
+            ArchivoUtils.mostrarMensaje("Error", "Reserva no encontrada", "No se encontró ninguna reserva para el cliente con ID " + idCliente, Alert.AlertType.ERROR);
+            throw new ErrorGuardarCambios("No se encontró ninguna reserva para el cliente con ID " + idCliente);
+        }
+
+
+    }
+
 
     public static ArrayList<String> leerNombresPaquetesTuristicos() throws IOException {
         ArrayList<String> nombres = new ArrayList<>();
