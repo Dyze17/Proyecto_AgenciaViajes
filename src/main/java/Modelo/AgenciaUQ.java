@@ -421,12 +421,14 @@ public class AgenciaUQ {
     public static ArrayList<String> leerNombresPaquetesTuristicos() throws IOException {
         ArrayList<String> nombres = new ArrayList<>();
         try {
-            ArrayList<String> lineas = ArchivoUtils.leerArchivoBufferedReader(RUTAPAQUETES);
+            ArrayList<String> lineas = (ArrayList<String>) ArchivoUtils.deserializarObjeto(RUTAPAQUETES);
             for (String linea : lineas) {
                 String[] val = linea.split(";");
                 nombres.add(val[0]);
             }
-        } catch (IOException e) {e.getMessage();}
+        } catch (IOException e) {e.getMessage();} catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         return nombres;
     }
 
@@ -475,7 +477,9 @@ public class AgenciaUQ {
             log.severe(e.getMessage());
         }
     }
-  
+
+
+
     public void modificarUsuario(String cedula, String nuevoNombre, String nuevoCorreo, String nuevoTelefono, String nuevaDireccion, String nuevaContraseña) throws IOException, ErrorGuardarCambios, ClassNotFoundException {
 
         // Obtener la lista actualizada de clientes
