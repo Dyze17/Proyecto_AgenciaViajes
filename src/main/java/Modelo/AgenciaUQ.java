@@ -27,6 +27,7 @@ import java.util.logging.SimpleFormatter;
 import java.util.stream.Collectors;
 
 import Enum.EstadoReserva;
+import Enum.EstadoPQRS;
 @Log
 public class AgenciaUQ {
     @Getter
@@ -34,7 +35,9 @@ public class AgenciaUQ {
     @Getter
     private final ArrayList<Destino> destinos;
     @Getter
-    private ArrayList<Reserva> reservas;
+    private ArrayList<Reserva> reservas = new ArrayList<>();
+    @Getter
+    private ArrayList<ClasePQRS> pqrss = new ArrayList<>();
     @Getter
     private final ArrayList<PaqueteTuristico> paquetes;
     @Getter
@@ -390,7 +393,6 @@ public class AgenciaUQ {
             LOGGER.log( Level.WARNING, "La fecha de solicitud no puede ser después de la fecha de viaje" );
             throw new FechaNoValidaException("La fecha de sloicitud no puede ser después de la fecha de viaje");
         }
-
         if(idCliente == null || idCliente.isBlank()){
             LOGGER.log( Level.WARNING, "La referencia es obligatoria para el registro" );
             throw new AtributoVacioException("La referencia es obligatoria");
@@ -412,21 +414,101 @@ public class AgenciaUQ {
                 .build();
 
         reservas.add(reserva);
-        ArchivoUtils.escribirArchivoFormatter("src/main/resources/Data/reservas.data", null);
+        ArchivoUtils.escribirArchivoFormatter2("src/main/resources/Data/reservas.txt", reservas);
 
         ArchivoUtils.mostrarMensaje("Informe", "", "Se ha agregado la reserva correctamente", Alert.AlertType.INFORMATION);
         LOGGER.log(Level.INFO, "Se ha registrado una nueva reserva del cliente: "+cliente);
     }
 
+    public void modificarReserva(String idCliente, LocalDate nuevaFechaSolicitud, LocalDate nuevaFechaViaje, short nuevoNumPersonas, PaqueteTuristico nuevoPaqueteTuristico, Cliente nuevoCliente, GuiaTuristico nuevoGuia, EstadoReserva nuevoEstado) throws AtributoVacioException, FechaNoValidaException, CupoInvalidoException, IOException, ErrorGuardarCambios {
+        // Buscar la reserva que se desea modificar
+        Reserva reservaAModificar = null;
+        for (Reserva reserva : reservas) {
+            if (reserva.getCliente().getCedula().equals(idCliente)) {
+                reservaAModificar = reserva;
+                break;
+            }
+        }
+
+        if (reservaAModificar == null) {
+            ArchivoUtils.mostrarMensaje("Error", "Reserva no encontrada", "No se encontró ninguna reserva para el cliente con ID " + idCliente, Alert.AlertType.ERROR);
+            throw new ErrorGuardarCambios("No se encontró ninguna reserva para el cliente con ID " + idCliente);
+        }
+        if (nuevaFechaSolicitud.isAfter(nuevaFechaViaje)) {
+            LOGGER.log(Level.WARNING, "La fecha de solicitud no puede ser después de la fecha de viaje");
+            throw new FechaNoValidaException("La fecha de solicitud no puede ser después de la fecha de viaje");
+        }
+
+        // Modificar la reserva
+        reservaAModificar.setFechaSolicitud(nuevaFechaSolicitud);
+        reservaAModificar.setFechaViaje(nuevaFechaViaje);
+        reservaAModificar.setNumPersonas(nuevoNumPersonas);
+        reservaAModificar.setPaqueteTuristico(nuevoPaqueteTuristico);
+        reservaAModificar.setCliente(nuevoCliente);
+        reservaAModificar.setGuia(nuevoGuia);
+        reservaAModificar.setEstado(nuevoEstado);
+
+        // Guardar la lista actualizada de reservas
+        ArchivoUtils.escribirArchivoFormatter2("src/main/resources/Data/reservas.txt", reservas);
+
+        ArchivoUtils.mostrarMensaje("Informe", "", "Se ha modificado la reserva correctamente", Alert.AlertType.INFORMATION);
+        LOGGER.log(Level.INFO, "Se ha modificado la reserva del cliente: " + idCliente);
+    }
+
+    public void eliminarReserva (String idCliente) throws ErrorGuardarCambios, IOException {
+        // Buscar la reserva que se desea eliminar
+        Reserva reservaAEliminar = null;
+        for (Reserva reserva : reservas) {
+            if (reserva.getCliente().getCedula().equals(idCliente)) {
+                reservaAEliminar = reserva;
+                break;
+            }
+        }
+        if (reservaAEliminar != null) {
+            reservas.remove(reservaAEliminar);
+            ArchivoUtils.escribirArchivoFormatter("src/main/resources/Data/reservas.txt", null);
+
+            ArchivoUtils.mostrarMensaje("Informe", "", "Se ha eliminado la reserva correctamente", Alert.AlertType.INFORMATION);
+            LOGGER.log(Level.INFO, "Se ha eliminado la reserva del cliente con ID: " + idCliente);
+        } else {
+            ArchivoUtils.mostrarMensaje("Error", "Reserva no encontrada", "No se encontró ninguna reserva para el cliente con ID " + idCliente, Alert.AlertType.ERROR);
+            throw new ErrorGuardarCambios("No se encontró ninguna reserva para el cliente con ID " + idCliente);
+        }
+    }
+
+    public void crearPqrs (String nombre, EstadoPQRS estado, String mensaje) throws AtributoVacioException, IOException {
+        if(nombre == null || nombre.isBlank()){
+            LOGGER.log( Level.WARNING, "La referencia es obligatoria para el registro" );
+            throw new AtributoVacioException("La referencia es obligatoria");
+        }
+        if(mensaje == null || mensaje.isBlank()){
+            LOGGER.log( Level.WARNING, "La referencia es obligatoria para el registro" );
+            throw new AtributoVacioException("La referencia es obligatoria");
+        }
+
+        ClasePQRS pqrs = ClasePQRS.builder()
+                .nombre(nombre)
+                .pqrs(estado)
+                .mensaje(mensaje).build();
+        pqrss.add(pqrs);
+        ArchivoUtils.escribirArchivoFormatter2("src/main/resources/Data/Pqrs.txt", pqrss);
+
+        ArchivoUtils.mostrarMensaje("Informe", "Sugerencia recibida", "Se ha agregado el PQRS correctamente", Alert.AlertType.INFORMATION);
+        LOGGER.log(Level.INFO, "Se ha registrado un nuevo PQRS del cliente: " + nombre);
+
+    }
+
     public static ArrayList<String> leerNombresPaquetesTuristicos() throws IOException {
         ArrayList<String> nombres = new ArrayList<>();
         try {
-            ArrayList<String> lineas = ArchivoUtils.leerArchivoBufferedReader(RUTAPAQUETES);
+            ArrayList<String> lineas = (ArrayList<String>) ArchivoUtils.deserializarObjeto(RUTAPAQUETES);
             for (String linea : lineas) {
                 String[] val = linea.split(";");
                 nombres.add(val[0]);
             }
-        } catch (IOException e) {e.getMessage();}
+        } catch (IOException e) {e.getMessage();} catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         return nombres;
     }
 
@@ -475,7 +557,9 @@ public class AgenciaUQ {
             log.severe(e.getMessage());
         }
     }
-  
+
+
+
     public void modificarUsuario(String cedula, String nuevoNombre, String nuevoCorreo, String nuevoTelefono, String nuevaDireccion, String nuevaContraseña) throws IOException, ErrorGuardarCambios, ClassNotFoundException {
 
         // Obtener la lista actualizada de clientes
@@ -495,7 +579,7 @@ public class AgenciaUQ {
                     .build();
 
             // Guardar la lista actualizada de clientes
-            ArchivoUtils.escribirArchivoFormatter("src/main/resources/Data/users.data", null);
+            ArchivoUtils.escribirArchivoFormatter2("src/main/resources/Data/users.data", clientes);
             ArchivoUtils.mostrarMensaje("Informe", "", "Se ha modificado el usuario correctamente", Alert.AlertType.INFORMATION);
             LOGGER.log(Level.INFO, "Se ha modificado el usuario con cédula: " + cedula);
 

@@ -52,6 +52,15 @@ public class PrincipalController implements Initializable {
         }
     }
 
+    public void showPQRS (){
+        try {
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Interfaces/Pqrs.fxml")));
+            panelFormulario.getChildren().setAll(node);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void mostrarGestion() {
         //Solamente muestra la pantalla de gestion si el usuario iniciado de sesion es administrador
         if(IniciarSesionController.iniciado && IniciarSesionController.administrador) {
