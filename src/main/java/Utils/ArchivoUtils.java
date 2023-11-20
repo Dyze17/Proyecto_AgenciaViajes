@@ -203,4 +203,17 @@ public class ArchivoUtils {
         alert.setContentText(contenido);
         alert.showAndWait();
     }
+
+    public static void escribirArchivoFormatter2(String ruta, List<?> lista) {
+        try (Formatter formatter = new Formatter(new FileWriter(ruta))) {
+            if (lista != null) {
+                for (Object elemento : lista) {
+                    formatter.format("%s%n", elemento);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
