@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import lombok.extern.java.Log;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 @Log
@@ -57,9 +58,10 @@ public class ModificarController implements Initializable {
             ArchivoUtils.mostrarMensaje("Éxito", "Modificación exitosa", "Los cambios se guardaron correctamente.", Alert.AlertType.INFORMATION);
             log.severe("Se ha actualizado correctamente los datos de " + txtDocumento);
 
-        } catch (Exception e) {
-            ArchivoUtils.mostrarMensaje("Error", "Error al guardar cambios", "Hubo un error al intentar guardar los cambios.", Alert.AlertType.ERROR);
-            throw new ErrorGuardarCambios("No se encontró ningún cliente con la cédula proporcionada.");
+        } catch (ErrorGuardarCambios | IOException | ClassNotFoundException e) {
+            // Manejo de la excepción si no se encuentra el cliente
+            ArchivoUtils.mostrarMensaje("Error", "Error al actualizar cliente", "No se encontró ningún cliente con la cédula proporcionada.", Alert.AlertType.ERROR);
+            e.printStackTrace(); // Solo para depuración, considera quitarlo en producción
         }
     }
 

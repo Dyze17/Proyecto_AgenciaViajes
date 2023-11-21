@@ -5,11 +5,15 @@ import Exceptions.AtributoVacioException;
 import Exceptions.CupoInvalidoException;
 import Exceptions.ErrorGuardarCambios;
 import Exceptions.FechaNoValidaException;
+import Sockets.ClienteSocket;
 import Utils.ArchivoUtils;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.java.Log;
+
+import java.net.Socket;
 import java.util.Optional;
 import javax.swing.*;
 import java.io.*;
@@ -43,6 +47,9 @@ public class AgenciaUQ {
     @Getter
     private final ArrayList<Cliente> clientes;
     private ArrayList<GuiaTuristico> guias;
+    @Getter
+    @Setter
+    private ClienteSocket clienteSocket;
     private static final String RUTAUSERS = "src/main/resources/Data/users.txt";
     private static final String RUTADESTINOS = "src/main/resources/Data/destinos.txt";
     private static final String RUTAPAQUETES = "src/main/resources/Data/paquetes.ser";
@@ -358,6 +365,8 @@ public class AgenciaUQ {
             Cliente cliente = Cliente.builder().clave(clave).nombreCompleto(nombre).cedula(documento).correo(email).telefono(celular).direccion(direccion).rol(rolSeleccionado).build();
             clientes.add(cliente);
             escribirUsuario(cliente);
+            notificarClienteConectado(cliente.getNombreCompleto());
+            notificarServidorCliente(cliente.getNombreCompleto());
             JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
             log.info("Usuario '" + cliente.getNombreCompleto() + "' registrado correctamente");
         }
@@ -388,7 +397,6 @@ public class AgenciaUQ {
     }
 
     public void crearReserva (LocalDate fechaSolicitud, LocalDate fechaViaje, String idCliente, short numPersonas, PaqueteTuristico paqueteTuristico, Cliente cliente, GuiaTuristico guia, EstadoReserva estado) throws AtributoVacioException, FechaNoValidaException, CupoInvalidoException, IOException {
-
         if(fechaSolicitud.isAfter(fechaViaje)){
             LOGGER.log( Level.WARNING, "La fecha de solicitud no puede ser después de la fecha de viaje" );
             throw new FechaNoValidaException("La fecha de sloicitud no puede ser después de la fecha de viaje");
@@ -493,9 +501,10 @@ public class AgenciaUQ {
         pqrss.add(pqrs);
         ArchivoUtils.escribirArchivoFormatter2("src/main/resources/Data/Pqrs.txt", pqrss);
 
+        notificarServidorPqrs(pqrs.getNombre());
+
         ArchivoUtils.mostrarMensaje("Informe", "Sugerencia recibida", "Se ha agregado el PQRS correctamente", Alert.AlertType.INFORMATION);
         LOGGER.log(Level.INFO, "Se ha registrado un nuevo PQRS del cliente: " + nombre);
-
     }
 
     public static ArrayList<String> leerNombresPaquetesTuristicos() throws IOException {
@@ -587,5 +596,39 @@ public class AgenciaUQ {
             ArchivoUtils.mostrarMensaje("Error", "Cliente no encontrado", "No se encontró ningún cliente con la cédula proporcionada.", Alert.AlertType.ERROR);
             throw new ErrorGuardarCambios("No se encontró ningún cliente con la cédula proporcionada.");
         }
+    }
+
+    public void notificarClienteConectado(String nombreUsuario) {
+        // Lógica para notificar a la interfaz gráfica u otros componentes
+        System.out.println("Cliente conectado: " + nombreUsuario);
+    }
+
+    private void notificarServidor(String mensaje) {
+        String servidorDireccion = "localhost";
+        int servidorPuerto = 12345;
+        try (Socket socket = new Socket(servidorDireccion, servidorPuerto)) {
+            enviarMensaje(socket, mensaje);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void enviarMensaje(Socket socket, String mensaje) throws IOException {
+        try (ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream())) {
+            output.writeObject(mensaje);
+            output.flush();
+        }
+    }
+
+    // Llamada para notificar cuando se crea una PQRS
+    private void notificarServidorPqrs(String pqrs) {
+        String mensaje = pqrs + " realizó una PQRS";
+        notificarServidor(mensaje);
+    }
+
+    // Llamada para notificar cuando se crea un cliente
+    private void notificarServidorCliente(String nombreCliente) {
+        String mensaje = nombreCliente + " se ha registrado como cliente";
+        notificarServidor(mensaje);
     }
 }
