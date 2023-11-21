@@ -5,10 +5,12 @@ import Exceptions.AtributoVacioException;
 import Exceptions.CupoInvalidoException;
 import Exceptions.ErrorGuardarCambios;
 import Exceptions.FechaNoValidaException;
+import Sockets.ClienteSocket;
 import Utils.ArchivoUtils;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.java.Log;
 import java.util.Optional;
 import javax.swing.*;
@@ -43,6 +45,9 @@ public class AgenciaUQ {
     @Getter
     private final ArrayList<Cliente> clientes;
     private ArrayList<GuiaTuristico> guias;
+    @Getter
+    @Setter
+    private ClienteSocket clienteSocket;
     private static final String RUTAUSERS = "src/main/resources/Data/users.txt";
     private static final String RUTADESTINOS = "src/main/resources/Data/destinos.txt";
     private static final String RUTAPAQUETES = "src/main/resources/Data/paquetes.ser";
@@ -388,7 +393,6 @@ public class AgenciaUQ {
     }
 
     public void crearReserva (LocalDate fechaSolicitud, LocalDate fechaViaje, String idCliente, short numPersonas, PaqueteTuristico paqueteTuristico, Cliente cliente, GuiaTuristico guia, EstadoReserva estado) throws AtributoVacioException, FechaNoValidaException, CupoInvalidoException, IOException {
-
         if(fechaSolicitud.isAfter(fechaViaje)){
             LOGGER.log( Level.WARNING, "La fecha de solicitud no puede ser después de la fecha de viaje" );
             throw new FechaNoValidaException("La fecha de sloicitud no puede ser después de la fecha de viaje");
@@ -587,5 +591,10 @@ public class AgenciaUQ {
             ArchivoUtils.mostrarMensaje("Error", "Cliente no encontrado", "No se encontró ningún cliente con la cédula proporcionada.", Alert.AlertType.ERROR);
             throw new ErrorGuardarCambios("No se encontró ningún cliente con la cédula proporcionada.");
         }
+    }
+
+    public void notificarClienteConectado(String nombreUsuario) {
+        // Lógica para notificar a la interfaz gráfica u otros componentes
+        System.out.println("Cliente conectado: " + nombreUsuario);
     }
 }

@@ -1,2 +1,4 @@
 123,Alex,100,ar4119704@gmail.com,3238070937,Armenia Quindio,Administrador
 Daniel,101,321,daniel@gmail.com,3131,calle13,Administrador
+carlos,12345,12345,asdfghjkl,12345,zxcvbn,Administrador
+sss,123,123,aaaaa,123,aaa,Administrador
