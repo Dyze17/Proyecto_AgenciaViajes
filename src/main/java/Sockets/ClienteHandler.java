@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ClienteHandler implements Runnable {
     private Socket socket;
@@ -45,9 +46,11 @@ public class ClienteHandler implements Runnable {
             e.printStackTrace();
         } finally {
             // Asegúrate de cerrar el socket y eliminar este ClienteHandler de la lista en ServidorSocket
-            servidor.eliminarCliente(this);
+            //servidor.eliminarCliente(this);
             try {
                 socket.close();
+            } catch (SocketException se) {
+                se.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }

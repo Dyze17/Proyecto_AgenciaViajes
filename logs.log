@@ -48,3 +48,25 @@ nov 20, 2023 7:27:09 P. M. Modelo.AgenciaUQ <init>
 INFO: Se cre una nueva instancia de AgenciaUQ
 nov 20, 2023 7:27:56 P. M. Modelo.AgenciaUQ registrarUsuario
 INFO: Usuario '123' registrado correctamente
+nov 20, 2023 8:14:27 P. M. Modelo.AgenciaUQ <init>
+INFO: Se cre una nueva instancia de AgenciaUQ
+nov 20, 2023 8:14:29 P. M. Modelo.AgenciaUQ registrarUsuario
+INFO: Usuario '1' registrado correctamente
+nov 20, 2023 8:14:46 P. M. Modelo.AgenciaUQ crearPqrs
+INFO: Se ha registrado un nuevo PQRS del cliente: carlos
+nov 20, 2023 8:18:23 P. M. Modelo.AgenciaUQ <init>
+INFO: Se cre una nueva instancia de AgenciaUQ
+nov 20, 2023 8:18:26 P. M. Modelo.AgenciaUQ crearPqrs
+INFO: Se ha registrado un nuevo PQRS del cliente: carlos
+nov 20, 2023 8:19:16 P. M. Modelo.AgenciaUQ registrarUsuario
+INFO: Usuario '11' registrado correctamente
+nov 20, 2023 8:25:09 P. M. Modelo.AgenciaUQ <init>
+INFO: Se cre una nueva instancia de AgenciaUQ
+nov 20, 2023 8:25:11 P. M. Modelo.AgenciaUQ registrarUsuario
+INFO: Usuario '22' registrado correctamente
+nov 20, 2023 8:27:59 P. M. Modelo.AgenciaUQ <init>
+INFO: Se cre una nueva instancia de AgenciaUQ
+nov 20, 2023 8:28:01 P. M. Modelo.AgenciaUQ registrarUsuario
+INFO: Usuario '33' registrado correctamente
+nov 20, 2023 8:32:30 P. M. Modelo.AgenciaUQ <init>
+INFO: Se cre una nueva instancia de AgenciaUQ

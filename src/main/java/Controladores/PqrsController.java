@@ -28,7 +28,6 @@ public class PqrsController implements Initializable {
         boxPQRS.getItems().addAll(EstadoPQRS.values());
     }
 
-
     @FXML
     void showPQRS(ActionEvent event) throws AtributoVacioException, IOException {
         String nombre = txtNombre.getText();
@@ -42,7 +41,6 @@ public class PqrsController implements Initializable {
             ArchivoUtils.mostrarMensaje("Error", "Error al realizar PQRS", "Hubo un error al intentar crear una PQRS.", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
-
     }
 }
 
